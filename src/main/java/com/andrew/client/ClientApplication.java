@@ -1,5 +1,6 @@
 package com.andrew.client;
 
+import com.andrew.client.model.Car;
 import com.andrew.client.model.Role;
 import com.andrew.client.model.User;
 import com.andrew.client.request_test.CarRequestsTest;
@@ -18,6 +19,7 @@ public class ClientApplication {
     public static void main(String[] args) {
 //        SpringApplication.run(ClientApplication.class, args);
         final UserRequestsTest userRequestsTest = new UserRequestsTest();
+        final CarRequestsTest carRequestsTest = new CarRequestsTest();
 
         userRequestsTest.createUsers();
         User[] users = userRequestsTest.getUsers();
@@ -27,7 +29,10 @@ public class ClientApplication {
         userRequestsTest.addBankAccount(owner.getId());
         userRequestsTest.addBankAccount(client.getId());
 
-        userRequestsTest.deleteUser(client.getId());
+        carRequestsTest.createCars(owner.getId());
+        Car[] cars = carRequestsTest.getCars();
+
+
 
     }
 

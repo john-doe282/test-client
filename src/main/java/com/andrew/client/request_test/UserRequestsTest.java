@@ -1,6 +1,5 @@
 package com.andrew.client.request_test;
 
-import com.andrew.client.model.Role;
 import com.andrew.client.model.User;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -18,13 +17,13 @@ public class UserRequestsTest {
         restTemplate = new RestTemplateBuilder().build();
     }
 
-    private String performPostRequest(String url, Map<String, Object> body) {
+    private void performPostRequest(String url, Map<String, Object> body) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
 
-        return restTemplate.postForObject(url, entity, String.class);
+        restTemplate.postForObject(url, entity, String.class);
 
     }
     public void createUsers() {
