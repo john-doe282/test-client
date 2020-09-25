@@ -14,7 +14,7 @@ public class UserRequestsTest {
     private final RestTemplate restTemplate;
 
     public UserRequestsTest() {
-        restTemplate = new RestTemplateBuilder().build();
+        restTemplate = new RestTemplate();
     }
 
     private void performPostRequest(String url, Map<String, Object> body) {

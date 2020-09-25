@@ -56,7 +56,7 @@ public class CarRequestsTest {
         return restTemplate.getForObject(url, Car[].class);
     }
 
-    public Car getUser(UUID id) {
+    public Car getCar(UUID id) {
         String requestUrl = url + "/" + id.toString();
         return restTemplate.getForObject(requestUrl, Car.class);
     }
