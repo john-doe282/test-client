@@ -62,10 +62,7 @@ public class UserRequestsTest {
         String requestUrl = url + "/bank";
         Map<String, Object> bankAccount = new HashMap<>();
 
-        Map<String, Object> userShort = new HashMap<>();
-        userShort.put("id", id.toString());
-
-        bankAccount.put("user", userShort);
+        bankAccount.put("userId", id.toString());
 
         Random rand = new Random();
         String iban = "350920950" + rand.nextInt(10);

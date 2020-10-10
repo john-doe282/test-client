@@ -29,15 +29,14 @@ public class CarRequestsTest {
 
     }
     public void createCars(UUID ownerId) {
-        Map<String, Object> owner = new HashMap<>();
-        owner.put("id", ownerId.toString());
+
 
         Map<String, Object> car1 = new HashMap<>();
         car1.put("model", "Toyota");
         car1.put("type", "SUV");
         car1.put("pricePerHour", 3);
         car1.put("status", "AVAILABLE");
-        car1.put("owner", owner);
+        car1.put("ownerId", ownerId.toString());
 
 
         Map<String, Object> car2 = new HashMap<>();
@@ -45,7 +44,7 @@ public class CarRequestsTest {
         car2.put("type", "SUV");
         car2.put("pricePerHour", 1);
         car2.put("status", "AVAILABLE");
-        car2.put("owner", owner);
+        car2.put("ownerId", ownerId.toString());
 
         performPostRequest(url, car1);
         performPostRequest(url, car2);

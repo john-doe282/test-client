@@ -29,15 +29,9 @@ public class RentRequestsTest {
     }
 
     public void rent(UUID clientId, UUID carId) {
-        Map<String, Object> client = new HashMap<>();
-        client.put("id", clientId.toString());
-
-        Map<String, Object> car = new HashMap<>();
-        car.put("id", carId);
-
         Map<String, Object> rent = new HashMap<>();
-        rent.put("client", client);
-        rent.put("car", car);
+        rent.put("clientId", clientId.toString());
+        rent.put("carId", carId.toString());
         rent.put("duration", 12);
 
         performPostRequest(url, rent);
