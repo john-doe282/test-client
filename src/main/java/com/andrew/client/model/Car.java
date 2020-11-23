@@ -1,15 +1,17 @@
 package com.andrew.client.model;
 
+import com.andrew.rental.GetCarResponse;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public final class Car {
     private UUID id;
 
@@ -25,4 +27,13 @@ public final class Car {
     @JsonManagedReference(value = "carReference")
     private List<ActiveRent> activeRents;
 
+    public static Car fromGetCarResponse(GetCarResponse response) {
+        return new CarBuilder().
+                id(UUID.fromString(response.getId())).
+                model(response.getModel()).
+                type(response.getType()).
+                pricePerHour(response.getPricePerHour()).
+                status(Status.valueOf(response.getStatus().toString())).
+                build();
+    }
 }

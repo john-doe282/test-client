@@ -1,4 +1,4 @@
-package com.andrew.client.request_test;
+package com.andrew.client.request_test.rest;
 
 import com.andrew.client.model.Car;
 import org.springframework.http.HttpEntity;
@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class CarRequestsTest {
-    private final String url = "http://localhost:8080/cars";
+    private final String url = "http://127.0.0.1:62110/cars";
     private final RestTemplate restTemplate;
 
     public CarRequestsTest() {

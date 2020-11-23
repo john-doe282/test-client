@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package com.andrew.rental;
+
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+import "bank_service.proto";
+
+enum Role {
+  OWNER = 0;
+  CLIENT = 1;
+}
+
+message GetRequest {
+  string id = 1;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message AllRequest {
+}
+
+message AddUserRequest {
+  string name = 1;
+  string surname = 2;
+  string email = 3;
+  string login = 4;
+  string password_hash = 5;
+  Role role = 6;
+}
+
+message UserResponse {
+  string id = 1;
+  string name = 2;
+  string surname = 3;
+  string email = 4;
+  string login = 5;
+  string password_hash = 6;
+  google.protobuf.Timestamp created_at = 7;
+  Role role = 8;
+  GetBankAccountResponse bank_accounts = 9;
+}
+
+message UsersShort {
+  string id = 1;
+  string name = 2;
+  string surname = 3;
+  string email = 4;
+  string login = 5;
+  string password_hash = 6;
+  google.protobuf.Timestamp created_at = 7;
+  Role role = 8;
+}
+
+message AllResponse {
+  repeated UsersShort users = 1;
+}
+
+message AddResponse {
+  string id = 1;
+}
+
+message DeleteResponse {
+}
+
+//message GetBankAccountRequest {
+//  string id = 1;
+//  string user_id = 2;
+//  string iban = 3;
+//  int64 balance = 4;
+//}
+
+
+service UserService {
+  rpc all(AllRequest) returns (AllResponse);
+  rpc get(GetRequest) returns (UserResponse);
+  rpc shortGet(GetRequest) returns (UsersShort);
+  rpc add(AddUserRequest) returns (AddResponse);
+  rpc delete(DeleteRequest) returns (DeleteResponse);
+  rpc addBankAccount (AddBankAccountRequest) returns (BankResponse);
+}

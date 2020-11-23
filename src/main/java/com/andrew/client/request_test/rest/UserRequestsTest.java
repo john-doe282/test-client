@@ -1,4 +1,4 @@
-package com.andrew.client.request_test;
+package com.andrew.client.request_test.rest;
 
 import com.andrew.client.model.User;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 public class UserRequestsTest {
-    private final String url = "http://localhost:8080/users";
+    private final String url = "http://127.0.0.1:62110/users";
     private final RestTemplate restTemplate;
 
     public UserRequestsTest() {

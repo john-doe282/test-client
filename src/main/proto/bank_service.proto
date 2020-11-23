@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package com.andrew.rental;
+
+option java_multiple_files = true;
+
+message AddBankAccountRequest {
+  string user_id = 1;
+  string iban = 2;
+  int64 balance = 3;
+}
+
+message BankAccountResponse {
+  string id = 1;
+  string user_id = 2;
+  string iban = 3;
+  int64 balance = 4;
+}
+
+message GetBankAccountResponse {
+  repeated BankAccountResponse bank_accounts = 1;
+}
+
+message GetBankAccountRequest {
+  string user_id = 1;
+}
+
+message BankResponse {
+
+}
+
+service BankAccountService {
+  rpc addBankAccount (AddBankAccountRequest) returns (BankResponse);
+  rpc getByUserId (GetBankAccountRequest) returns (GetBankAccountResponse);
+}
