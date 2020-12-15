@@ -11,7 +11,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public class RentRequestsTest {
-    private final String url = "http://127.0.0.1:62110/rents";
+//    private final String url = "http://127.0.0.1:62110/rents";
+    private final String url = "http://localhost:8086/rents";
+
     private final RestTemplate restTemplate;
 
     public RentRequestsTest() {

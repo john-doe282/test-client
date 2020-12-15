@@ -24,7 +24,7 @@ public final class Car {
     @JsonBackReference
     private User owner;
 
-    @JsonManagedReference(value = "carReference")
+//    @JsonManagedReference(value = "carReference")
     private List<ActiveRent> activeRents;
 
     public static Car fromGetCarResponse(GetCarResponse response) {

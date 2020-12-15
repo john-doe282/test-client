@@ -17,7 +17,7 @@ public final class BankAccount {
     private String iban;
     private int balance;
 
-    @JsonBackReference(value = "userReference")
+//    @JsonBackReference(value = "userReference")
     private User user;
 
     public static BankAccount fromBankAccountResponse (BankAccountResponse response) {

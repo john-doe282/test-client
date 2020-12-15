@@ -29,13 +29,16 @@ public class User {
 
     private Role role;
 
-    @JsonManagedReference
+//    @JsonManagedReference
+//    @JsonIgnore
     private List<Car> cars;
 
-    @JsonManagedReference(value = "userReference")
+//    @JsonManagedReference(value = "userReference")
+//    @JsonIgnore
     private List<BankAccount> bankAccounts;
 
-    @JsonManagedReference(value = "clientReference")
+//    @JsonManagedReference(value = "clientReference")
+//    @JsonIgnore
     private List<ActiveRent> activeRents;
 
     public static User fromUsersShort (UsersShort response) {

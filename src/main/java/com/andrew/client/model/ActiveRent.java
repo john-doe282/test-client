@@ -2,6 +2,7 @@ package com.andrew.client.model;
 
 import com.andrew.rental.GetRentResponse;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.UUID;
@@ -16,10 +17,12 @@ public class ActiveRent {
 
     private int duration;
 
-    @JsonBackReference(value = "carReference")
+//    @JsonBackReference(value = "carReference")
+    @JsonIgnore
     private Car car;
 
-    @JsonBackReference(value = "clientReference")
+//    @JsonBackReference(value = "clientReference")
+    @JsonIgnore
     private User client;
 
     public static ActiveRent fromRentResponse (GetRentResponse response) {

@@ -10,7 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 public class UserRequestsTest {
-    private final String url = "http://127.0.0.1:62110/users";
+//    private final String url = "http://127.0.0.1:62110/users";
+    private final String url = "http://localhost:8086/users";
     private final RestTemplate restTemplate;
 
     public UserRequestsTest() {

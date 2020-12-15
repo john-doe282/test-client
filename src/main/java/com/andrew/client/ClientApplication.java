@@ -1,21 +1,33 @@
 package com.andrew.client;
 
 import com.andrew.client.model.*;
+import com.andrew.client.model.Role;
 import com.andrew.client.request_test.grpc.GrpcCarRequestsTest;
 import com.andrew.client.request_test.grpc.GrpcRentRequestsTest;
 import com.andrew.client.request_test.grpc.GrpcUserRequestsTest;
+import com.andrew.client.request_test.rabbit.RabbitRequestsTest;
+import com.andrew.client.request_test.rabbit.dto.ActiveRentMqttDto;
+import com.andrew.client.request_test.rabbit.dto.MqttRequestType;
+import com.andrew.client.request_test.rabbit.dto.MyMqttMessage;
 import com.andrew.client.request_test.rest.CarRequestsTest;
 import com.andrew.client.request_test.rest.RentRequestsTest;
 import com.andrew.client.request_test.rest.UserRequestsTest;
-import com.andrew.rental.*;
+import com.andrew.rental.AddRentRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class ClientApplication {
+    private static final UserRequestsTest userRequest = new UserRequestsTest();
+    private static final CarRequestsTest carRequest = new CarRequestsTest();
+    private static final RentRequestsTest rentRequest = new RentRequestsTest();
+
     public static void restTest() {
         final UserRequestsTest userRequestsTest = new UserRequestsTest();
         final CarRequestsTest carRequestsTest = new CarRequestsTest();
@@ -121,15 +133,48 @@ public class ClientApplication {
 
 
     }
-    public static void main(String[] args) {
-//        System.out.println("REST TEST: \n");
-//        restTest();
 
-        System.out.println("\nGRPC TEST: \n");
-        grpcTest();
+    public static void rabbitTest() throws MqttException, JsonProcessingException, InterruptedException {
+        final RabbitRequestsTest rabbitRequestsTest = new RabbitRequestsTest();
 
+        System.out.println("\n\nUser test");
+        rabbitRequestsTest.AddUsersTest();
+        User[] users = userRequest.getUsers();
 
+        if (users.length > 0) {
+            System.out.println("User insertion successful");
+        }
+        User owner = users[0];
+        User client = users[1];
 
+        rabbitRequestsTest.AddBankAccountTest(owner.getId());
+
+        rabbitRequestsTest.AddBankAccountTest(client.getId());
+
+        List<BankAccount> bankAccountsTest = userRequest.getUser(
+                owner.getId()).getBankAccounts();
+        if (bankAccountsTest.size() > 0) {
+            System.out.println("Bank account addition successful");
+        }
+
+        System.out.println("\n\nCar test");
+        rabbitRequestsTest.AddCarTest(owner.getId());
+        Car[] cars = carRequest.getCars();
+        if (cars.length > 0) {
+            System.out.println("Cars insertion successful");
+        }
+        Car car = cars[0];
+
+        System.out.println("\n\nRent test");
+        rabbitRequestsTest.AddRentTest(client.getId(), car.getId());
+        ActiveRent[] rents = rentRequest.getRents(client.getId());
+        if (rents.length > 0) {
+            System.out.println("Renting successful");
+        }
+    }
+    public static void main(String[] args) throws MqttException, JsonProcessingException, InterruptedException {
+        rabbitTest();
+//        grpcTest();
     }
 
 }
